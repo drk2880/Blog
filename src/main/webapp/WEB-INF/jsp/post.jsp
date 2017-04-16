@@ -55,9 +55,9 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="site-heading">
-                        <h1>Clean Blog</h1>
-                        <hr class="small">
-                        <span class="subheading">A Clean Blog Theme by Start Bootstrap</span>
+                        <h1><c:out value="${post.title}"></c:out></h1>
+                        <h2 class="subheading"><c:out value="${post.subtitle}"></c:out></h2>
+                        <span class="meta">Posted by <a href="#">Origoni</a> on ${post.regDate}</span>
                     </div>
                 </div>
             </div>
@@ -65,31 +65,24 @@
     </header>
 
     <!-- Main Content -->
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            
-            <c:forEach var="post" items="${postList}">
-                <div class="post-preview">
-                    <a href="/post/${post.id}">
-                        <h2 class="post-title">
-                            ${post.subject}
-                        </h2>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> on ${post.regDate}</p>
-                </div>            
-            </c:forEach>
-                <hr>
-
-                <!-- Pager -->
-                <ul class="pager">
-                    <li class="next">
-                        <a href="#">Older Posts &rarr;</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    <article>
+	    <div class="container">
+	        <div class="row">
+	            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+	            	${post.content}
+	            
+	                <hr>
+	
+	                <!-- Pager -->
+	                <ul class="pager">
+	                    <li class="next">
+	                        <a href="#">Older Posts &rarr;</a>
+	                    </li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+    </article>
 
     <hr>
 

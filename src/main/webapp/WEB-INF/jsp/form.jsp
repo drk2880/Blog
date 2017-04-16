@@ -72,11 +72,15 @@
 
 	<form action="/post/write" onsubmit="$('#content').val($('#pen').html()); pen.destroy();" method="post">
 
-		<input type="text" name="subject" placeholder="Subject"
+		<input type="text" name="title" placeholder="title"
 			style="height: 70px; width: 100%; font-size: 55px; 
 			border: none; border-right: 0px; border-top: 0px; boder-left: 0px; boder-bottom: 1px; outline-style: none; 
 			font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 800;">
-
+			
+		<input type="text" name="subtitle" placeholder="subtitle" style="height: 70px; width: 100%; font-size: 22px; 
+			border: none; border-right: 0px; border-top: 0px; boder-left: 0px; boder-bottom: 1px; outline-style: none; 
+			font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 800;">
+			
 		<input type="hidden" name="content" id="content">
 
 		<hr style="margin-top: 2px; border-top: 1px solid #999;">
@@ -91,7 +95,7 @@
 
 	<p class="text-muted">Powered By <a href="#">AkiponKumaBlog</a> | WYSIWYG Editor by <a href="https://github.com/sofish/pen">Pen Editor</a></p>
 
-	<script src="/webjars/adminlte/2.3.11/jquery.min.js"></script>
+	<script src="/webjars/adminlte/2.3.11/plugins/jQuery/jquery-2.2.3.min.js"></script>
 	<script src="/webjars/adminlte/2.3.11/bootstrap/js/bootstrap.min.js"></script>
 	<script src="/webjars/pen/0.2.2/src/pen.js"></script>
 	<script src="/webjars/pen/0.2.2/src/markdown.js"></script>
