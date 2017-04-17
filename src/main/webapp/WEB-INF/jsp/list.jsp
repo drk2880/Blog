@@ -82,6 +82,11 @@
                     <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> on ${post.regDate}</p>
                 </div>            
             </c:forEach>
+   	            <div class="pull-right">
+	            	<a href="/post/write">
+	            		<button type="button" class="btn btn-primary">Write</button>
+	            	</a>
+	            </div>
                 <hr>
 
                 <!-- Pager -->

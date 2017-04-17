@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -21,6 +22,8 @@
   #hinted{color:#1abf89;cursor:pointer;}
   #hinted.disabled{color:#666;}
   #hinted:before{content: '\e816';}
+  .errorblock {border:2px solid red;}
+  .error {color:red;}
 </style>
 
 <link rel="stylesheet" href="/webjars/pen/0.2.2/src/pen.css" />
@@ -70,28 +73,40 @@
 	  <i class="pen-icon icon-createlink" data-action="createlink"></i>
 	</div>
 
-	<form action="/post/write" onsubmit="$('#content').val($('#pen').html()); pen.destroy();" method="post">
 
-		<input type="text" name="title" placeholder="title"
+	<c:if test="${post.id == 0}"><c:url var="actionUrl" value="/post/write" /></c:if>
+	<c:if test="${post.id != 0}"><c:url var="actionUrl" value="/post/${post.id}/edit"/></c:if>
+	
+	<form:form action="${actionUrl}" commandName="post" onsubmit="if($('#pen').html()!='<p><br></p>')$('#content').val($('#pen').html()); pen.destroy();" method="post">
+		
+		<c:if test="${post.id != 0}">
+			<form:input type="hidden" path="regDate" />
+		</c:if>
+		
+		<form:errors path="*" cssClass="errorblock" element="div" />
+		
+		<form:input type="text" path="title" placeholder="Title"
 			style="height: 70px; width: 100%; font-size: 55px; 
 			border: none; border-right: 0px; border-top: 0px; boder-left: 0px; boder-bottom: 1px; outline-style: none; 
-			font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 800;">
+			font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 800;" />
+		<form:errors path="title" cssClass="error" />		
 			
-		<input type="text" name="subtitle" placeholder="subtitle" style="height: 70px; width: 100%; font-size: 22px; 
+		<form:input type="text" path="subtitle" placeholder="Subtitle (option)" style="height: 70px; width: 100%; font-size: 22px; 
 			border: none; border-right: 0px; border-top: 0px; boder-left: 0px; boder-bottom: 1px; outline-style: none; 
-			font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 800;">
+			font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 800;" />
 			
-		<input type="hidden" name="content" id="content">
-
-		<hr style="margin-top: 2px; border-top: 1px solid #999;">
+		<hr style="margin-top: 2px; botrder-top:1px solid #999;" />			
 
 		<div data-toggle="pen" data-placeholder="Content" id="pen" style="min-height: 200px;"></div>
+		
+		<form:input type="hidden" path="content" id="content" />
+		<form:errors path="content" cssClass="error" />
 
 		<hr>
 
 		<button type="submit" class="btn btn-primary btn-lg btn-block">저장</button>
 
-	</form>
+	</form:form>
 
 	<p class="text-muted">Powered By <a href="#">AkiponKumaBlog</a> | WYSIWYG Editor by <a href="https://github.com/sofish/pen">Pen Editor</a></p>
 
@@ -108,6 +123,9 @@
 		// create editor
 		var pen = window.pen = new Pen(options);
 		pen.focus();
+		
+		$('#pen').html($('#content').val());
+		
 		document.querySelector('#hinted').addEventListener('click', function() {
 			var pen = document.querySelector('.pen')
 			if (pen.classList.contains('hinted')) {

@@ -69,16 +69,16 @@
 	    <div class="container">
 	        <div class="row">
 	            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-	            	${post.content}
+	            	${post.content}            
+	            </div>
 	            
-	                <hr>
-	
-	                <!-- Pager -->
-	                <ul class="pager">
-	                    <li class="next">
-	                        <a href="#">Older Posts &rarr;</a>
-	                    </li>
-	                </ul>
+	            <div class="pull-right">
+	            	<a href="/post/${post.id}/edit">
+	            		<button type="button" class="btn btn-warning">Edit</button>
+	            	</a>
+	            	<a href="/post/${post.id}/delete" onclick="if(!confirm('진짜?')) {return false;}">
+	            		<button type="button" class="btn btn-danger">Delete</button>
+	            	</a>
 	            </div>
 	        </div>
 	    </div>
