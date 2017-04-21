@@ -70,7 +70,7 @@
 				<p>You aren't connected to Facebook yet. Click the button to connect this application with your Facebook account.</p>
 			</div>
 			<p>
-				<button type="submit">Connect to Facebook</button>
+				<button type="submit" class="btn btn-primary">Connect to Facebook</button>
 			</p>
 		</form>
 	</div>

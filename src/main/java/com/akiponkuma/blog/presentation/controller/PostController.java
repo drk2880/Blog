@@ -56,6 +56,8 @@ public class PostController {
 	@RequestMapping("/list")
 	public String list(Model model){
 		List<Post> postList = postDao.findAll();
+		User user = getConnect();
+		model.addAttribute("user", user);
 		model.addAttribute("postList", postList);
 		return "list";
 	}
@@ -63,6 +65,8 @@ public class PostController {
 	@RequestMapping("/{id}")
 	public String view(Model model, @PathVariable int id){
 		Post post = postDao.findOne(id);
+		User user = getConnect();
+		model.addAttribute("user", user);
 		model.addAttribute("post", post);
 		return "post";
 	}

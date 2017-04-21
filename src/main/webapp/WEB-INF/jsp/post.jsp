@@ -57,7 +57,7 @@
                     <div class="site-heading">
                         <h1><c:out value="${post.title}"></c:out></h1>
                         <h2 class="subheading"><c:out value="${post.subtitle}"></c:out></h2>
-                        <span class="meta">Posted by <a href="#">Origoni</a> on ${post.regDate}</span>
+                        <span class="meta">Posted by <a href="#">${post.name}</a> on ${post.regDate}</span>
                     </div>
                 </div>
             </div>
@@ -78,6 +78,9 @@
 	            	</a>
 	            	<a href="/post/${post.id}/delete" onclick="if(!confirm('진짜?')) {return false;}">
 	            		<button type="button" class="btn btn-danger">Delete</button>
+	            	</a>
+	            	<a href="/post/list">
+	            		<button type="button" class="btn btn-primary">List</button>
 	            	</a>
 	            </div>
 	        </div>

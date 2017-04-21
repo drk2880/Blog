@@ -12,6 +12,25 @@
 <link rel="stylesheet" href="/webjars/origoni-startbootstrap-clean-blog/1.0.3/css/clean-blog.min.css">
 </head>
 <body>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '812235108955078',
+      xfbml      : true,
+      version    : 'v2.9'
+    });
+    FB.AppEvents.logPageView();
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
 	<!-- Navigation -->
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
         <div class="container-fluid">
@@ -79,9 +98,15 @@
                         	<c:out value="${post.subtitle}" escapeXml="true"></c:out>
                         </h3>
                     </a>
-                    <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> on ${post.regDate}</p>
+                    <p class="post-meta">Posted by <a href="#">${post.name}</a> on ${post.regDate}</p>
                 </div>            
             </c:forEach>
+	            <div
+				  class="fb-like"
+				  data-share="true"
+				  data-width="450"
+				  data-show-faces="true">
+				</div>
    	            <div class="pull-right">
 	            	<a href="/post/write">
 	            		<button type="button" class="btn btn-primary">Write</button>
