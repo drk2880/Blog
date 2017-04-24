@@ -6,6 +6,10 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionData;
 import org.springframework.social.connect.ConnectionRepository;
@@ -37,14 +41,14 @@ public class PostController {
 	@RequestMapping(value="/write", method=RequestMethod.GET)
 	public String form(Post post){
 		post.setRegDate(LocalDateTime.now());
-		return "form";
+		return "post/form";
 	}
 	
 	@RequestMapping(value="/write", method=RequestMethod.POST)
 	public String write(@Valid Post post, BindingResult bindingResult){
 		User user = getConnect();		
 		if(bindingResult.hasErrors()){
-			return "form";
+			return "post/form";
 		}		
 		post.setRegDate(LocalDateTime.now());
 		post.setUserId(user.getProviderUserId());
@@ -54,12 +58,12 @@ public class PostController {
 	
 
 	@RequestMapping("/list")
-	public String list(Model model){
-		List<Post> postList = postDao.findAll();
+	public String list(Model model, @PageableDefault(sort={"id"}, direction=Direction.DESC, size=2) Pageable pageable){
+		Page<Post> postPage = postDao.findAll(pageable);
 		User user = getConnect();
 		model.addAttribute("user", user);
-		model.addAttribute("postList", postList);
-		return "list";
+		model.addAttribute("postPage", postPage);
+		return "post/list";
 	}
 	
 	@RequestMapping("/{id}")
@@ -68,7 +72,7 @@ public class PostController {
 		User user = getConnect();
 		model.addAttribute("user", user);
 		model.addAttribute("post", post);
-		return "post";
+		return "post/post";
 	}
 	
 	@RequestMapping("/{id}/delete")
@@ -85,14 +89,14 @@ public class PostController {
 	public String editor(Model model, @PathVariable int id){
 		Post post = postDao.findOne(id);
 		model.addAttribute("post", post);
-		return "form";
+		return "post/form";
 	}
 	
 	@RequestMapping(value="/{id}/edit", method=RequestMethod.POST)
 	public String edit(@Valid Post post, BindingResult bindingResult){
 		User user = getConnect();
 		if(bindingResult.hasErrors()){
-			return "form";		
+			return "post/form";		
 		}
 		
 		Post oldPost = postDao.findOne(post.getId());
@@ -102,7 +106,7 @@ public class PostController {
 			oldPost.setContent(post.getContent());
 			return "redirect:/post/" + postDao.save(oldPost).getId();
 		}
-		return "form";
+		return "post/form";
 	}
 	
 	private User getConnect() {
